@@ -85,8 +85,8 @@ export default class Monitor extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.updateCounters()
+  async componentDidMount() {
+    await this.updateCounters()
 
     const intervalId = setInterval(this.updateCounters.bind(this), 5000)
 
@@ -108,7 +108,7 @@ export default class Monitor extends React.Component {
     NOTE: The polling interval is 5s or 5000ms (see the 
     componentDidMount() method above).
   */
- fetchCounters = () => {
+ fetchCounters = async () => {
     return {
       mme: Math.floor(Math.random() * Math.floor(10)),
       rbs: Math.floor(Math.random() * Math.floor(10)),
@@ -116,10 +116,10 @@ export default class Monitor extends React.Component {
     }
   }
 
-  updateCounters() {
+  async updateCounters() {
     const { 
       mme: mmeCounter, rbs: rbsCounter, epg: epgCounter 
-    } = this.fetchCounters()
+    } = await this.fetchCounters()
 
     const oldMmeDataSet = this.state.mmeData.datasets[0]
     const newMmeDataSet = { ...oldMmeDataSet }
