@@ -51,7 +51,7 @@ Coming tomorrow morning.
 
 You now have two functions to implement.
 
-The function from last time has been moved to `src/Containers/Template.js`. If you read the "Important Notes on Demo Limitations" and "Step-by-Step ..." sections above, you know that you will be recieving the monitoring endpoint for each individual instantiation from the user (you can choose to override this user-given value if you see fit, but then you should change the aforementioned sections accordingly!). See the comment contained within for more info.
+The function from last time has been moved to `src/Containers/Template.js`. If you read the "Important Notes on Demo Limitations" and "Step-by-Step ..." sections above, you know that you will be recieving the monitoring endpoint for each individual instantiation from the user (you can choose to override this user-given value if you see fit, but then you should change the aforementioned sections accordingly!). See the comment contained within this new file for more info.
 
 The second function is a similarly marked and absracted fetch call for the described `Instantiate` button. See the file `src/Containers/Instantiation.js` (and "Andrew" comment contained within).
 
