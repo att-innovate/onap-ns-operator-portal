@@ -2,6 +2,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You can find the most recent version of the user guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
+# Up and Running
+
+- Make sure you have `node lts` on your machine.
+- Install `yarn` using `npm` (node package manager).
+- In the root of the directory run `yarn install`.
+- In the root of the directory run `yarn start`.
+- Navigate to `localhost:3000/dashboard`.
+
 # Important Notes on Demo Limitations
 
 1. If you hit `Cmd/Ctrl` + `R`, the entire local cache is refreshed, and since there is no backing DB, and the
@@ -38,14 +46,7 @@ Coming tomorrow morning.
 
 # For Andrew F.
 
-## Up and Running
-
-- Make sure you have `node lts` on your machine.
-- Install `yarn` using `npm` (node package manager).
-- In the root of the directory run `yarn start`.
-- Navigate to `localhost:3000/dashboard`.
-
-## Your Code
+## Tasks
 
 ### 08/30/2018
 
@@ -57,7 +58,7 @@ The second function is a similarly marked and absracted fetch call for the descr
 
 ### 08/25/2018
 
-Should go in the file at `src/Dashboard/Monitor/index.js`. I have marked the function you need to implement with a comment that has your name in it.
+Your code should go in the file at `src/Dashboard/Monitor/index.js`. I have marked the function you need to implement with a comment that has your name in it.
 
 As I recall you wished to poll an endpoint, so the function you implement will be called every 5 seconds by the live graphs (we can change the interval). Right now, I just return some dummy rand values.
 
