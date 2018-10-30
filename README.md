@@ -33,7 +33,6 @@ front-end will have no memory of any of your manipulations.
    - In other words, do not to spam the aforementioned `Instantiate` buttons expecting the "Monitor & Manage" tab to update. 
    - Instead you will have to click on each placeholder in the "Monitor & Manage" tab, enter the associated monitoring endpoint of the successfully instantiated slice (which you verified in the console because you heeded `(3)`), and then walah, live graphs should pop up in the nested pages you arrived at after clicking on each placeholder.
 
-
 5. If you navigate away from the individual monitoring pages for each slice (where the graphs live), you will have to do all of the stuff in `(4)` again. So how do we compare the two instantiated slices?
    - Pull up two windows.
    - Navigate to the Monitor & Manage tab in each window.
@@ -42,12 +41,25 @@ front-end will have no memory of any of your manipulations.
    - While you wait for the graphs to collect a bit of data, talk about how awesome network slicing is.
    - Show how awesome network slicing is.
 
-
 This should all be clear in the step-by-step guide to an awesome demo below.
 
 # Step-by-Step How to Show this Demo Effectively, Given Above Limitations
 
-Coming tomorrow morning.
+1. Navigate to http://localhost:3000/dashboard.
+2. Click on the [Service Designs tab](http://localhost:3000/dashboard/services). Talk about the different underlying infrastructures a slice might have (Critical MTC, Massive MTC, eMBB, ...).
+3. Click on the [Enterprise MBB service design](http://localhost:3000/dashboard/services/embb), and show off the diagram that elucidates the underlying infrastructure for interested users.
+4. Now click on the [Instantiate tab](http://localhost:3000/dashboard/instantiate). Here live use case templates: service designs + some preset (but somewhat configurable) parameters, tailor-made for the specific use case.
+5. Click on the [Private Platinum Service template](http://localhost:3000/dashboard/instantiate/demo1), a.k.a. Demo #1 ("Best").
+6. Show off the instantiate interface for this use case template, and then scroll down and click the blue `Instantiate` button.
+7. The button will transform into a spinner. While the spinner is loading, show off in the command line an instantiating network slice!
+8. Retreive the slice's counter/monitoring endpoint from the command line.
+9. Once the spinner has finished loading, go back to the [Instantiate tab](http://localhost:3000/dashboard/instantiate) and repeat steps 5 - 7, this time with the [Private Silver Service template](http://localhost:3000/dashboard/instantiate/demo2), a.k.a. Demo #2 ("More Standard").
+10. **Important: the next steps require two separate browser windows.**
+11. In both windows, navigate to the [Monitoring tab](http://localhost:3000/dashboard/monitor).
+12. Click on the monitoring card for [Private Platinum Service](http://localhost:3000/dashboard/monitor/demo1) in Window A, and click on the monitoring card for [Private Silver Service](http://localhost:3000/dashboard/monitor/demo2) in Window B.
+13. Manually enter the two slice counter/monitoring endpoints you retreived from the command line, in the respective windows.
+14. Wait for the graphs to load after you click the blue `Activate Monitoring` button.
+15. Show that clearly, the live graphs are different.
 
 # For Andrew F.
 
