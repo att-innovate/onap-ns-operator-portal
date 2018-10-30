@@ -1,188 +1,102 @@
 import React from 'react';
-import {Line} from 'react-chartjs-2';
-import { Row, Col } from 'antd'
+import {
+  Icon, 
+  Card, Row, Col,
+  Checkbox
+} from 'antd'
 
-export default class Monitor extends React.Component {
-  state = {
-    pollIntervalId: null,
-    mmeData: {
-      labels: [],
-      datasets: [
-        {
-          label: 'QCI',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: 'rgba(75,192,192,1)',
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: 'rgba(75,192,192,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: []
-        }
-      ]
-    },
-    rbsData: {
-      labels: [],
-      datasets: [
-        {
-          label: 'QCI',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: 'rgba(75,192,192,1)',
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: 'rgba(75,192,192,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: []
-        }
-      ]
-    },
-    epgData: {
-      labels: [],
-      datasets: [
-        {
-          label: 'QCI',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: 'rgba(75,192,192,1)',
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: 'rgba(75,192,192,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: []
-        }
-      ]
-    }
-  }
+import { Switch, Route, Link } from 'react-router-dom'
 
-  async componentDidMount() {
-    await this.updateCounters()
+import { connect } from 'react-redux'
 
-    const intervalId = setInterval(this.updateCounters.bind(this), 5000)
+import { Line } from 'react-chartjs-2';
 
-    this.setState({
-      pollIntervalId: intervalId
-    })
-  }
+import Instantiation from '../../Containers/Instantiation'
 
-  componentWillUnmount() {
-    clearInterval(this.state.pollIntervalId)
-  }
+const { Meta } = Card;
 
-  /*
-    Andrew, please wrap the call to fetch MME, RBS, and EPG
-    counters into a single call that returns three numeric values.
+const Instantiations = (props) => {
+  const { instantiations, templates } = props
 
-    Right now, they are stubbed out with random number generators.
+  const rows = []
 
-    NOTE: The polling interval is 5s or 5000ms (see the 
-    componentDidMount() method above).
-  */
- fetchCounters = async () => {
-    return {
-      mme: Math.floor(Math.random() * Math.floor(10)),
-      rbs: Math.floor(Math.random() * Math.floor(10)),
-      epg: Math.floor(Math.random() * Math.floor(10)),
-    }
-  }
+  for (let i = 0; i < instantiations.items.allIds.length; i+=3) {
+    const lower = i
+    const upper = Math.min(i + 3, instantiations.items.allIds.length)
 
-  async updateCounters() {
-    const { 
-      mme: mmeCounter, rbs: rbsCounter, epg: epgCounter 
-    } = await this.fetchCounters()
+    rows.push(
+      <Row gutter={16} key={i}>
+        {instantiations.items.allIds.slice(lower, upper).map(instantiationId => {
+          const instantiation = instantiations.items.byId[instantiationId]
+          const template = templates.items.byId[instantiation.templateId]
 
-    const oldMmeDataSet = this.state.mmeData.datasets[0]
-    const newMmeDataSet = { ...oldMmeDataSet }
-
-    newMmeDataSet.data.push(mmeCounter)
-
-    const newMmeData = {
-      ...this.state.mmeData,
-      datasets: [newMmeDataSet],
-      labels: this.state.mmeData.labels.concat(
-        new Date().toLocaleTimeString()
-      )
-    }
-
-    const oldRbsDataSet = this.state.rbsData.datasets[0]
-    const newRbsDataSet = { ...oldRbsDataSet }
-
-    newRbsDataSet.data.push(rbsCounter)
-
-    const newRbsData = {
-      ...this.state.rbsData,
-      datasets: [newRbsDataSet],
-      labels: this.state.rbsData.labels.concat(
-        new Date().toLocaleTimeString()
-      )
-    }
-
-    const oldEpgDataSet = this.state.epgData.datasets[0]
-    const newEpgDataSet = { ...oldEpgDataSet }
-
-    newEpgDataSet.data.push(epgCounter)
-
-    const newEpgData = {
-      ...this.state.epgData,
-      datasets: [newEpgDataSet],
-      labels: this.state.epgData.labels.concat(
-        new Date().toLocaleTimeString()
-      )
-    }
-
-    this.setState({ 
-      mmeData: newMmeData,
-      rbsData: newRbsData,
-      epgData: newEpgData,
-    });
-  }
-
-  render() {
-    return (
-      <Row gutter={16}>
-        <Col style={{ marginTop: 35 }} sm={24} md={12}>
-          <h2>MME</h2>
-          <Line data={this.state.mmeData} />
-        </Col>
-        <Col style={{ marginTop: 35 }} sm={24} md={12}>
-          <h2>RBS</h2>
-          <Line data={this.state.rbsData} />
-        </Col>
-        <Col style={{ marginTop: 35 }} sm={24} md={12}>
-          <h2>EPG</h2>
-          <Line data={this.state.epgData} />
-        </Col>
+            return (
+              <Col span={8} style={{ paddingTop: 10, paddingBottom: 10 }} key={instantiationId}>
+                <Link to={`/dashboard/monitor/${instantiationId}`}>
+                  <Card
+                    hoverable
+                    // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                  >
+                    <Meta
+                      title={
+                        <div style={{ display: 'flex' }}>
+                          <div style={{ flex: 1, alignSelf: 'flex-start' }}>
+                            {instantiation.name}
+                          </div>
+                          <div style={{ flex: 1, alignSelf: 'flex-end', textAlign: 'right' }}>
+                            {instantiation.active 
+                              ? <Icon type="check-circle" theme="outlined" theme="twoTone" twoToneColor="#52c41a" />
+                              : <Icon type="close-circle" theme="outlined" theme="twoTone" twoToneColor="#e03b38"/>}
+                          </div>
+                        </div>
+                      }
+                      description={
+                        <div>
+                          <span>{template.description}</span>
+                          <br />
+                          <br />
+                          <span><b>Use Case:</b></span> <span>{template.name}</span>
+                          <br />
+                          <span><b>Latency:</b></span> <span>{instantiation.latencyVal} {instantiation.latencyUnits}</span>
+                          <br />
+                          <span><b>Throughput:</b></span> <span>{instantiation.throughputVal} {instantiation.throughputUnits}</span>
+                          <br />
+                          <span><b>Availability:</b></span> <span>{instantiation.availability}</span>
+                          <br />
+                          <span><b>Shared:</b>&nbsp;&nbsp;<Checkbox checked={instantiation.shared} disabled={true} /></span>
+                          <br />
+                          <span><b>Number of Devices:</b></span> <span>{instantiation.numberOfDevices}</span>
+                        </div>
+                      }
+                    />
+                  </Card>
+                </Link>
+              </Col>
+            )
+        })}
       </Row>
-    );
+    )
+  }
+
+  return (
+    <div>
+      {rows}
+    </div>
+  )
+}
+
+const Routes = (props) => (
+  <Switch>
+    <Route exact path='/dashboard/monitor' component={() => <Instantiations {...props} />}/>
+    <Route path='/dashboard/monitor/:id' component={Instantiation} />
+  </Switch>
+)
+
+const mapStateToProps = state => {
+  return {
+    templates: state.templates,
+    instantiations: state.instantiations,
   }
 }
+
+export default connect(mapStateToProps)(Routes)

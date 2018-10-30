@@ -87,40 +87,103 @@ const templates = (
         'frc': {
           name: "Factory Robotics Control",
           description: "Controlling and managing factory robotics using on-site radio access and network functions to minimize latency, and locally running applications.",
-          serviceId: "cmtc"
+          serviceId: "cmtc",
+          isDummy: true
         },
         'vtx': {
           name: "Vehicle-to-X",
           description: "Intra- and Inter-vehicle communications for entertainment, information and other non-critical functions.",
-          serviceId: "cmtc"
+          serviceId: "cmtc",
+          isDummy: true
         },
         'ac': {
           name: "Autonomous Control",
           description: "Low-latency control communications between autonomous agents and central applications.",
-          serviceId: "cmtc"
+          serviceId: "cmtc",
+          isDummy: true
         },
         'rh': {
           name: "Remote Healthcare",
           description: "Specifically designed to support the requirements of remote healthcare applications, for example, time-critical video and monitoring.",
-          serviceId: "cmtc"
+          serviceId: "cmtc",
+          isDummy: true
         },
         'rm': {
           name: "Remote Mining",
           description: "Control and management applications for typically remote mining scenarios.",
-          serviceId: "cmtc"
+          serviceId: "cmtc",
+          isDummy: true
         },
         'sm': {
           name: "Smart Metering",
           description: "Massive terminal numbers, non-time-critical, consumer device reading applications.",
-          serviceId: "mmtc"
+          serviceId: "mmtc",
+          isDummy: true
         },
         'lvs': {
           name: "Live Video Streaming",
           description: "Providing continuous, low-jitter video traffic for near-real-time video applications.",
+          serviceId: "embb",
+          isDummy: true
+        },
+        'demo1': {
+          name: "Demo #1",
+          description: "For PoC purposes.",
+          serviceId: "embb"
+        },
+        'demo2': {
+          name: "Demo #2",
+          description: "For PoC purposes.",
           serviceId: "embb"
         },
       },
-      allIds: ['frc', 'vtx', 'ac', 'rh', 'rm', 'sm', 'lvs']
+      allIds: ['frc', 'vtx', 'ac', 'rh', 'rm', 'sm', 'lvs', 'demo1', 'demo2']
+    }
+  },
+  action
+) => {
+  switch (action.type) {
+    default: 
+      return state
+  }
+}
+
+const instantiations = (
+  state = {
+    isFetching: false,
+    didInvalidate: false,
+    items: {
+      byId: {
+        'demo1': {
+          name: "Demo #1",
+          description: "For PoC purposes.",
+          latencyVal: '10',
+          latencyUnits: 'ms',
+          throughputVal: '1',
+          throughputUnits: 'Gbps',
+          availability: '99.999%',
+          shared: false,
+          numberOfDevices: 10,
+          active: true,
+          monitorEndpoint: '',
+          templateId: "demo1",
+        },
+        'demo2': {
+          name: "Demo #2",
+          description: "For PoC purposes.",
+          latencyVal: '10',
+          latencyUnits: 'ms',
+          throughputVal: '1',
+          throughputUnits: 'Gbps',
+          availability: '99.999%',
+          shared: true,
+          numberOfDevices: 10,
+          active: true,
+          monitorEndpoint: '',
+          templateId: "demo2",
+        },
+      },
+      allIds: ['demo1', 'demo2']
     }
   },
   action
@@ -133,7 +196,8 @@ const templates = (
 
 const rootReducer = combineReducers({
   services,
-  templates
+  templates,
+  instantiations
 })
 
 export default rootReducer
