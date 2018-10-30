@@ -120,24 +120,30 @@ const templates = (
           serviceId: "mmtc",
           isDummy: true
         },
-        'lvs': {
-          name: "Live Video Streaming",
-          description: "Providing continuous, low-jitter video traffic for near-real-time video applications.",
+        // 'lvs': {
+        //   name: "Live Video Streaming",
+        //   description: "Providing continuous, low-jitter video traffic for near-real-time video applications.",
+        //   serviceId: "embb",
+        //   isDummy: true
+        // },
+        'demo1': {
+          name: 'Private Platinum Service',
+          description: 'Provides platinum level guaranteed mobile service for specified applications to specified enterprises and/or users.',
+          serviceId: "embb"
+        },
+        'pgs': {
+          name: "Private Gold Service",
+          description: "Provides gold level guaranteed mobile service for specified applications to specified enterprises and/or users.",
           serviceId: "embb",
           isDummy: true
         },
-        'demo1': {
-          name: "Demo #1",
-          description: "For PoC purposes.",
-          serviceId: "embb"
-        },
         'demo2': {
-          name: "Demo #2",
-          description: "For PoC purposes.",
+          name: 'Private Silver Service',
+          description: 'Provides silver level guaranteed mobile service for specified applications to specified enterprises and/or users.',
           serviceId: "embb"
         },
       },
-      allIds: ['frc', 'vtx', 'ac', 'rh', 'rm', 'sm', 'lvs', 'demo1', 'demo2']
+      allIds: ['frc', 'vtx', 'ac', 'rh', 'rm', 'sm', /*'lvs',*/ 'demo1', 'pgs', 'demo2']
     }
   },
   action
@@ -155,8 +161,8 @@ const instantiations = (
     items: {
       byId: {
         'demo1': {
-          name: "Demo #1",
-          description: "For PoC purposes.",
+          name: 'Private Platinum Service',
+          description: 'Provides platinum level guaranteed mobile service for specified applications to specified enterprises and/or users.',
           latencyVal: '10',
           latencyUnits: 'ms',
           throughputVal: '1',
@@ -169,8 +175,8 @@ const instantiations = (
           templateId: "demo1",
         },
         'demo2': {
-          name: "Demo #2",
-          description: "For PoC purposes.",
+          name: 'Private Silver Service',
+          description: 'Provides silver level guaranteed mobile service for specified applications to specified enterprises and/or users.',
           latencyVal: '10',
           latencyUnits: 'ms',
           throughputVal: '1',
