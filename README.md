@@ -10,6 +10,11 @@ You can find the most recent version of the user guide [here](https://github.com
 - In the root of the directory run `yarn start`.
 - Navigate to `localhost:3000/dashboard`.
 
+# What are We Showing?
+
+- Instantiation and monitoring of Private Platinum Service (eMBB service design).
+- Instantiation and monitoring of Private Silver Service (eMBB service design).
+
 # Important Notes on Demo Limitations
 
 1. If you hit `Cmd/Ctrl` + `R`, the entire local cache is refreshed, and since there is no backing DB, and the
